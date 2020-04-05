@@ -33,8 +33,12 @@
             
             $j=0;
             $phrasesCorrectes="";
+            $error=[];
             if(!empty($phrases)){
-                for ($i=0; $i < count($phrases); $i+=2) {   
+                for ($i=0; $i < count($phrases); $i+=2) {  
+                    if(!verifcompteur($phrases[$i],200)){
+                        $error[]=" Y'a une phrase qui depasse 200 caracteres";
+                    } 
                     $phrase=f1($phrases[$i]);
                     if (isset($phrases[$i+1])) {
                         $phrase.=$phrases[$i+1]." ";
@@ -48,9 +52,15 @@
                                    
                 }
     
-                echo "<textarea cols='30' rows='10' readonly>$phrasesCorrectes </textarea>";
+                
             }else{
                 echo "Entrer quelque chose please";
+            }
+
+            if (empty($error)) {
+                echo "<textarea cols='30' rows='10' readonly>$phrasesCorrectes </textarea>";
+            }else{
+                echo $error[0];
             }
             
         }
